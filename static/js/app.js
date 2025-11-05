@@ -579,10 +579,22 @@ app.controller("clientesCtrl", function ($scope, $http, SesionService) {
     $scope.SesionService = SesionService;
 
     function cargarTablaClientes() {
-        $.get("/tbodyClientes", function(html) {
-            $("#tbodyClientes").html(html);
+        const tbody = $("#tbodyClientes");
+        if (!tbody.length) {
+            console.warn("tbodyClientes no existe todavía, reintentando...");
+            $timeout(cargarTablaClientes, 50); // reintenta en 50ms
+            return;
+        }
+
+        $.get("/tbodyClientes")
+        .done(function(html) {
+            tbody.html(html);
+        })
+        .fail(function(xhr, status, error) {
+            console.error("Error al cargar clientes:", status, error, xhr.responseText);
         });
     }
+
 
     cargarTablaClientes();
 
