@@ -125,33 +125,7 @@ def preferencias():
 
 @app.route("/clientes")
 def clientes():
-    try:
-        con = con_pool.get_connection()
-        cursor = con.cursor(dictionary=True)
-
-        # Traer los últimos 10 registros de Hora_Lab
-        sql = """
-        SELECT Id_Hora, Hora
-        FROM Hora_Lab
-        ORDER BY Id_Hora DESC
-        LIMIT 10 OFFSET 0
-        """
-        cursor.execute(sql)
-        registros = cursor.fetchall()
-
-        # Renderizamos clientes.html con los registros de Hora_Lab
-        return render_template("clientes.html", horas=registros)
-
-    except Exception as e:
-        print("Error en /clientes:", e)
-        return "Error al cargar clientes"
-
-    finally:
-        if cursor:
-            cursor.close()
-        if con and con.is_connected():
-            con.close()
-
+    return render_template("clientes.html")
 
 @app.route("/tbodyClientes")
 def tbodyClientes():
@@ -159,7 +133,6 @@ def tbodyClientes():
         con = con_pool.get_connection()
         cursor = con.cursor(dictionary=True)
 
-        # Traer los últimos 10 registros de Hora_Lab
         sql = """
         SELECT Id_Hora, Hora
         FROM Hora_Lab
@@ -169,8 +142,8 @@ def tbodyClientes():
         cursor.execute(sql)
         registros = cursor.fetchall()
 
-        # Renderizamos tbodyClientes.html con los registros de Hora_Lab
-        return render_template("tbodyClientes.html", horas=registros)
+        # Aquí puedes devolver HTML renderizado o JSON
+        return render_template("tbodyClientes.html", clientes=registros)
 
     except Exception as e:
         print("Error en /tbodyClientes:", e)
@@ -316,6 +289,7 @@ def eliminarCliente():
     except Exception as e:
         print("Error eliminando cliente:", e)
         return make_response(jsonify({"error": str(e)}), 500)
+
 
 
 
