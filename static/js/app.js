@@ -50,27 +50,6 @@ let lxFechaHora
 let diffMs = 0
 
 const app = angular.module("angularjsApp", ["ngRoute"])
-
-// Singleton
-app.service("SesionService", function() {
-    this.usuario = null
-    this.correo = null
-
-    this.setUsuario = function(usuario) {
-        this.usuario = usuario;
-    };
-    this.getUsuario = function() {
-        return this.usuario;
-    };
-
-    this.setCorreo = function(correo) {
-        this.correo = correo;
-    };
-    this.getCorreo = function() {
-        return this.correo;
-    };
-});
-
 app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix("")
 
@@ -87,7 +66,7 @@ app.config(function ($routeProvider, $locationProvider) {
         redirectTo: "/"
     })
 })
-app.run(["$rootScope", "$location", "$timeout", "SesionService", function($rootScope, $location, $timeout, $SesionService) {
+app.run(["$rootScope", "$location", "$timeout", function($rootScope, $location, $timeout) {
     $rootScope.slide             = ""
     $rootScope.spinnerGrow       = false
     $rootScope.sendingRequest    = false
@@ -117,9 +96,6 @@ app.run(["$rootScope", "$location", "$timeout", "SesionService", function($rootS
         preferencias = {}
     }
     $rootScope.preferencias = preferencias
-
-    $SesionService.setUsuario(preferencias.usuario)
-    $SesionService.setCorreo(preferencias.correo)
 
 
     $rootScope.$on("$routeChangeSuccess", function (event, current, previous) {
@@ -575,26 +551,13 @@ app.controller("loginCtrl", function ($scope, $http, $rootScope) {
     })
 })
 
-app.controller("clientesCtrl", function ($scope, $http, $timeout, SesionService) {
-    $scope.SesionService = SesionService;
+app.controller("clientesCtrl", function ($scope, $http) {
 
     function cargarTablaClientes() {
-        const tbody = $("#tbodyClientes");
-        if (!tbody.length) {
-            console.warn("tbodyClientes no existe todavía, reintentando...");
-            $timeout(cargarTablaClientes, 50); 
-            return;
-        }
-
-        $.get("/tbodyClientes")
-        .done(function(html) {
-            tbody.html(html);
-        })
-        .fail(function(xhr, status, error) {
-            console.error("Error al cargar clientes:", status, error, xhr.responseText);
+        $.get("/tbodyClientes", function(html) {
+            $("#tbodyClientes").html(html);
         });
     }
-
 
     cargarTablaClientes();
 
