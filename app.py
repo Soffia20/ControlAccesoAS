@@ -144,7 +144,23 @@ def clientes():
             cursor.close()
         if con and con.is_connected():
             con.close()
-
+            
+@app.route("/tbodyClientes")
+def tbodyClientes():
+    try:
+        con = con_pool.get_connection()
+        cursor = con.cursor(dictionary=True)
+        cursor.execute("SELECT Id_Hora, Hora FROM Hora_Lab ORDER BY Id_Hora DESC LIMIT 10 OFFSET 0")
+        registros = cursor.fetchall()
+        return render_template("tbodyClientes.html", horas=registros)
+    except Exception as e:
+        print("Error en /tbodyClientes:", e)
+        return "Error al cargar tbodyClientes", 500
+    finally:
+        if cursor:
+            cursor.close()
+        if con and con.is_connected():
+            con.close()
 
 @app.route("/clientes/buscar", methods=["GET"])
 def buscarClientes():
@@ -280,5 +296,6 @@ def eliminarCliente():
     except Exception as e:
         print("Error eliminando cliente:", e)
         return make_response(jsonify({"error": str(e)}), 500)
+
 
 
