@@ -575,14 +575,14 @@ app.controller("loginCtrl", function ($scope, $http, $rootScope) {
     })
 })
 
-app.controller("clientesCtrl", function ($scope, $http, SesionService) {
+app.controller("clientesCtrl", function ($scope, $http, $timeout, SesionService) {
     $scope.SesionService = SesionService;
 
     function cargarTablaClientes() {
         const tbody = $("#tbodyClientes");
         if (!tbody.length) {
             console.warn("tbodyClientes no existe todavía, reintentando...");
-            $timeout(cargarTablaClientes, 50); // reintenta en 50ms
+            $timeout(cargarTablaClientes, 50); 
             return;
         }
 
