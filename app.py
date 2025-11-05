@@ -31,10 +31,10 @@ def pusherClientes():
     import pusher
     
     pusher_client = pusher.Pusher(
-    app_id="2046017",
-    key="b51b00ad61c8006b2e6f",
-    secret="d2ec35aa5498a18af7bf",
-    cluster="us2",
+    app_id = "2073359"
+    key = "d60a574067b9a7511165"
+    secret = "856804a6e7e433ae7a3e"
+    cluster = "us2"
     ssl=True
     )
     
