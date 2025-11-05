@@ -562,7 +562,7 @@ app.controller("clientesCtrl", function ($scope, $http) {
     cargarTablaClientes();
 
     Pusher.logToConsole = true;
-    var pusher = new Pusher("b51b00ad61c8006b2e6f", { cluster: "us2" });
+    var pusher = new Pusher("d60a574067b9a7511165", { cluster: "us2" });
     var channel = pusher.subscribe("canalClientes");
     channel.bind("eventoClientes", function(data) {
         cargarTablaClientes();
