@@ -148,9 +148,9 @@ def tbodyClientes():
         cursor = con.cursor(dictionary=True)
 
         sql = """
-        SELECT idCliente, nombreCliente, telefono, correoElectronico
-        FROM clientes
-        ORDER BY idCliente DESC
+        SELECT Id_Hora, Hora
+        FROM Hora_Lab
+        ORDER BY Id_Hora DESC
         LIMIT 10 OFFSET 0
         """
 
