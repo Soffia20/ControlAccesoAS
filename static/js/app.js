@@ -584,8 +584,8 @@ app.controller("clientesCtrl", function ($scope, $http, $SesionService) {
 
     cargarTablaClientes();
 
-    $scope.$SesionService = $SesionService
-    
+    $scope.$SesionService = SesionService;
+
     Pusher.logToConsole = true;
     var pusher = new Pusher("d60a574067b9a7511165", { cluster: "us2" });
     var channel = pusher.subscribe("canalClientes");
