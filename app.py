@@ -142,8 +142,8 @@ def tbodyClientes():
         cursor.execute(sql)
         registros = cursor.fetchall()
 
-        # Aquí puedes devolver HTML renderizado o JSON
-        return render_template("tbodyClientes.html", clientes=registros)
+        # Pasa la variable como 'horas', que es lo que espera tu plantilla
+        return render_template("tbodyClientes.html", horas=registros)
 
     except Exception as e:
         print("Error en /tbodyClientes:", e)
@@ -154,6 +154,7 @@ def tbodyClientes():
             cursor.close()
         if con and con.is_connected():
             con.close()
+
 
 @app.route("/clientes/buscar", methods=["GET"])
 def buscarClientes():
@@ -289,6 +290,7 @@ def eliminarCliente():
     except Exception as e:
         print("Error eliminando cliente:", e)
         return make_response(jsonify({"error": str(e)}), 500)
+
 
 
 
