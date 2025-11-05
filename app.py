@@ -92,21 +92,13 @@ def login(fun):
     return decorador
 
 @app.route("/")
-def index():
-    if not con.is_connected():
-        con.reconnect()
-
-    con.close()
-
-    return render_template("index.html")
-@app.route("/dashboard")
-def dashboard():
-    return render_template("dashboard.html")
-
-@app.route("/login")
 def appLogin():
     return render_template("login.html")
     # return "<h5>Hola, soy la view app</h5>"
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
 
 @app.route("/fechaHora")
 def fechaHora():
@@ -671,6 +663,7 @@ def buscarTrajes():
         con.close()
 
     return make_response(jsonify(registros))
+
 
 
 
