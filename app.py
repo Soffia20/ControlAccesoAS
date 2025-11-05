@@ -143,6 +143,8 @@ def tbodyClientes():
         cursor.execute(sql)
         registros = cursor.fetchall()
 
+        print("Registros obtenidos de Hora_Lab:", registros)
+
         # Aquí puedes devolver HTML renderizado o JSON
         return render_template("tbodyClientes.html", clientes=registros)
 
@@ -291,3 +293,4 @@ def eliminarCliente():
     except Exception as e:
         print("Error eliminando cliente:", e)
         return make_response(jsonify({"error": str(e)}), 500)
+
