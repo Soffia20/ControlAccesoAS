@@ -73,7 +73,7 @@ app.run(["$rootScope", "$location", "$timeout", function($rootScope, $location, 
     $rootScope.incompleteRequest = false
     $rootScope.completeRequest   = false
     $rootScope.login             = localStorage.getItem("login")
-    const defaultRouteAuth       = "#/rentas"
+    const defaultRouteAuth       = "#/clientes"
     let timesChangesSuccessRoute = 0
 
 
@@ -540,7 +540,7 @@ app.controller("loginCtrl", function ($scope, $http, $rootScope) {
                 localStorage.setItem("login", "1")
                 localStorage.setItem("preferencias", JSON.stringify(respuesta[0]))
                 $("#frmInicioSesion").get(0).reset()
-                location.reload()
+                window.location.href = "#/clientes"
                 return
             }
 
@@ -653,3 +653,4 @@ app.controller("clientesCtrl", function ($scope, $http) {
         btnGuardar.removeClass("btn-primary").addClass("btn-success");
     });
 });
+
