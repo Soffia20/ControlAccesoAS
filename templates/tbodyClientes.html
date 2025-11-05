@@ -2,5 +2,11 @@
 <tr>
     <td>{{ hora.Id_Hora }}</td>
     <td>{{ hora.Hora }}</td>
+    <td>
+        <button class="btn btn-sm btn-danger btn-eliminar" data-id="{{ hora.Id_Hora }}">Eliminar</button>
+        <button class="btn btn-sm btn-warning btn-editar"
+            data-id="{{ hora.Id_Hora }}"
+            data-hora="{{ hora.Hora }}">Editar</button>
+    </td>
 </tr>
 {% endfor %}
