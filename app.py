@@ -22,20 +22,11 @@ con_pool = mysql.connector.pooling.MySQLConnectionPool(
     pool_name="my_pool",
     pool_size=5,
     host="185.232.14.52",
-    database="u760464709_23005256_bd",
-    user="u760464709_23005256_usr",
-    password="~6ru!MMJZzX"
+    database="u760464709_23005355_bd",
+    user="u760464709_23005355_usr",
+    password="F1O[QWJ$@2x"
 )
-"""
-con_pool = mysql.connector.pooling.MySQLConnectionPool(
-    pool_name="my_pool",
-    pool_size=5,
-    host="localhost",
-    database="practicas",
-    user="root",
-    password="Test12345"
-)
-"""
+
 
 def pusherRentas():
     import pusher
@@ -667,6 +658,7 @@ def buscarTrajes():
         con.close()
 
     return make_response(jsonify(registros))
+
 
 
 
