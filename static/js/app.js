@@ -117,8 +117,9 @@ app.run(["$rootScope", "$location", "$timeout", "SesionService", function($rootS
         preferencias = {}
     }
     $rootScope.preferencias = preferencias
-    SesionService.setUsuario(preferencias.usuario)
-    SesionService.setCorreo(preferencias.correo)
+
+    $SesionService.setUsuario(preferencias.usuario)
+    $SesionService.setCorreo(preferencias.correo)
 
 
     $rootScope.$on("$routeChangeSuccess", function (event, current, previous) {
@@ -575,6 +576,7 @@ app.controller("loginCtrl", function ($scope, $http, $rootScope) {
 })
 
 app.controller("clientesCtrl", function ($scope, $http, SesionService) {
+    $scope.SesionService = SesionService;
 
     function cargarTablaClientes() {
         $.get("/tbodyClientes", function(html) {
@@ -583,8 +585,6 @@ app.controller("clientesCtrl", function ($scope, $http, SesionService) {
     }
 
     cargarTablaClientes();
-
-    $scope.SesionService = SesionService;
 
     Pusher.logToConsole = true;
     var pusher = new Pusher("d60a574067b9a7511165", { cluster: "us2" });
