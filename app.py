@@ -125,32 +125,19 @@ def preferencias():
 
 @app.route("/clientes")
 def clientes():
-    return render_template("clientes.html")
-
-@app.route("/tbodyClientes")
-def tbodyClientes():
     try:
         con = con_pool.get_connection()
         cursor = con.cursor(dictionary=True)
 
-        sql = """
-        SELECT Id_Hora, Hora
-        FROM Hora_Lab
-        ORDER BY Id_Hora DESC
-        LIMIT 10 OFFSET 0
-        """
-
+        sql = "SELECT Id_Hora, Hora FROM Hora_Lab ORDER BY Id_Hora DESC LIMIT 10 OFFSET 0"
         cursor.execute(sql)
         registros = cursor.fetchall()
 
-        print("Registros obtenidos de Hora_Lab:", registros)
-
-        # Aquí puedes devolver HTML renderizado o JSON
-        return render_template("tbodyClientes.html", clientes=registros)
+        return render_template("clientes.html", horas=registros)
 
     except Exception as e:
-        print("Error en /tbodyClientes:", e)
-        return make_response(jsonify({"error": str(e)}), 500)
+        print("Error en /clientes:", e)
+        return "Error al cargar clientes"
 
     finally:
         if cursor:
@@ -293,4 +280,5 @@ def eliminarCliente():
     except Exception as e:
         print("Error eliminando cliente:", e)
         return make_response(jsonify({"error": str(e)}), 500)
+
 
