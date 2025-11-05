@@ -124,8 +124,21 @@ def preferencias():
     }))
 
 @app.route("/clientes")
-def clientes():
-    return render_template("clientes.html")
+def clientes_view():
+    # Devuelve la plantilla con todos los datos necesarios
+    try:
+        con = con_pool.get_connection()
+        cursor = con.cursor(dictionary=True)
+        cursor.execute("SELECT Id_Hora, Hora FROM Hora_Lab ORDER BY Id_Hora DESC LIMIT 10")
+        horas = cursor.fetchall()
+    finally:
+        if cursor:
+            cursor.close()
+        if con and con.is_connected():
+            con.close()
+
+    return render_template("clientes.html", horas=horas)
+
 
 @app.route("/tbodyClientes")
 def tbodyClientes():
@@ -290,6 +303,7 @@ def eliminarCliente():
     except Exception as e:
         print("Error eliminando cliente:", e)
         return make_response(jsonify({"error": str(e)}), 500)
+
 
 
 
