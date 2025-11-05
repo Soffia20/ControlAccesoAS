@@ -91,6 +91,14 @@ def login(fun):
         return fun(*args, **kwargs)
     return decorador
 
+@app.route("/")
+def index():
+    if not con.is_connected():
+        con.reconnect()
+
+    con.close()
+
+    return render_template("index.html")
 @app.route("/dashboard")
 def dashboard():
     return render_template("dashboard.html")
@@ -663,6 +671,7 @@ def buscarTrajes():
         con.close()
 
     return make_response(jsonify(registros))
+
 
 
 
